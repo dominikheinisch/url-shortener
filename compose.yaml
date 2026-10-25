@@ -1,10 +1,30 @@
 services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: shortener
+      POSTGRES_USER: shortener
+      POSTGRES_PASSWORD: shortener
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "shortener"]
+      interval: 2s
+      retries: 10
+
   app:
     build: .
     environment:
       PYTHONUNBUFFERED: 1
+      DATABASE_HOST: db
     volumes:
       - .:/app
     ports:
       - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
     command: uv run python manage.py runserver 0.0.0.0:8000
+
+volumes:
+  pgdata:

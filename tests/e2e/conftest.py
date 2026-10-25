@@ -1,8 +1,6 @@
 import pytest
 from pytest_django.live_server_helper import LiveServer
 
-from shortener import views
-
 
 @pytest.fixture
 def api_url(live_server: LiveServer) -> str:
@@ -10,5 +8,6 @@ def api_url(live_server: LiveServer) -> str:
 
 
 @pytest.fixture(autouse=True)
-def clear_urls() -> None:
-    views.urls.clear()
+def reset_ids(django_db_reset_sequences: None) -> None:
+    # every test starts from id 1, so codes are predictable
+    pass
