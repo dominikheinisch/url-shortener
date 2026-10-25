@@ -14,7 +14,9 @@ dev = [
     "mypy>=1.19",
     "pytest>=9.1.1",
     "pytest-django>=4.14.0",
+    "requests>=2.34.2",
     "ruff>=0.17.2",
+    "types-requests>=2.33.0.20261006",
 ]
 
 [tool.pytest.ini_options]
