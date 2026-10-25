@@ -11,14 +11,14 @@ def shorten(api_url: str, url: str) -> requests.Response:
 def test_create_returns_short_url(api_url: str) -> None:
     response = shorten(api_url, LONG_URL)
     assert response.status_code == 201
-    assert response.json() == {"short_url": "/shrt/BAAAAB"}
+    assert response.json() == {"short_url": api_url + "BAAAAB"}
 
 
 def test_create_returns_next_code_for_each_url(api_url: str) -> None:
     first = shorten(api_url, "https://example.com/a").json()["short_url"]
     second = shorten(api_url, "https://example.com/b").json()["short_url"]
-    assert first == "/shrt/BAAAAB"
-    assert second == "/shrt/BAAAAC"
+    assert first == api_url + "BAAAAB"
+    assert second == api_url + "BAAAAC"
 
 
 @pytest.mark.parametrize(

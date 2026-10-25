@@ -10,5 +10,5 @@ def api_url(live_server: LiveServer) -> str:
 
 
 @pytest.fixture(autouse=True)
-def reset_counter() -> None:
-    views.acc = 1
+def clear_urls() -> None:
+    views.urls.clear()
